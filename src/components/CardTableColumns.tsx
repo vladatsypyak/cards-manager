@@ -14,4 +14,10 @@ export const columns: ColumnDef<Card>[] = [
         accessorKey: "isDefault",
         header: "Default"
     },
+    {
+        accessorKey: "action",
+        header: "Action",
+        cell: ({ row }) => <button className={"font-bold"}>Delete</button>,
+
+    },
 ]
