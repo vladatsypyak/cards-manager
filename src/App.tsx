@@ -1,6 +1,8 @@
+import MyCardsPage from "./pages/MyCardsPage";
+
 function App() {
 	return  <div>
-		App
+		<MyCardsPage/>
 	</div>
 }
 
