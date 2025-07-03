@@ -3,6 +3,7 @@ import {Card} from "@/common/types";
 import DataTable from "../components/DataTable";
 import cardsMock from "../cards.json"
 import CardFilter from "@/components/CardFilter";
+import AddCardDialog from "@/components/AddCardDialog";
 
 const MyCardsPage = () => {
     const initialCards = cardsMock
@@ -24,7 +25,9 @@ const MyCardsPage = () => {
             <CardFilter filterCards={filterCards}/>
         </div>
             <DataTable cards={cards}/>
+            <AddCardDialog/>
         </div>
+
     )
 }
 export default MyCardsPage
