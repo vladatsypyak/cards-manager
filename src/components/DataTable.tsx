@@ -30,6 +30,7 @@ export function DataTable({cards }: DataTableProps) {
 
         return (
             <div className="rounded-md border">
+                <h2 className={"font-bold"}>My Cards</h2>
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
