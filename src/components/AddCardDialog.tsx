@@ -29,7 +29,7 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
 
     const onSubmit = (data: NewCardFormInputs) => {
         const newCard: Card = {
-            id: "1231",
+            id: crypto.randomUUID(),
             last4: data.cardNumber.slice(-4),
             isDefault: false,
             brand: detectCardType(data.cardNumber)
