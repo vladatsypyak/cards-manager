@@ -62,7 +62,7 @@ export function DataTable({cards, handleDelete, handleDefaultToggle}: DataTableP
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
+                                    No cards found
                                 </TableCell>
                             </TableRow>
                         )}
