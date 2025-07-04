@@ -25,7 +25,7 @@ const MyCardsPage = () => {
             <CardFilter filterCards={filterCards}/>
         </div>
             <DataTable cards={cards}/>
-            <AddCardDialog/>
+            <AddCardDialog cards={cards} setCards={setCards}/>
         </div>
 
     )

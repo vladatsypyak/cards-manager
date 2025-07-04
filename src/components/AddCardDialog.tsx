@@ -10,6 +10,8 @@ import {useForm, Controller} from "react-hook-form"
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
+import {detectCardType} from "@/common/utils";
+import {Card} from "@/common/types";
 
 
 type NewCardFormInputs = {
@@ -17,13 +19,22 @@ type NewCardFormInputs = {
     expirationDate: string
     cvc: string
 }
+type AddCardDialogProps = {
+    setCards: React.Dispatch<React.SetStateAction<Card[]>>;
+};
 
 
-const AddCardDialog = () => {
+const AddCardDialog = ({setCards}: AddCardDialogProps) => {
     const {register, handleSubmit, reset, control, setValue, watch} = useForm<NewCardFormInputs>()
 
     const onSubmit = (data: NewCardFormInputs) => {
-        console.log("card data", data)
+        const newCard: Card = {
+            id: "1231",
+            last4: data.cardNumber.slice(-4),
+            isDefault: false,
+            brand: detectCardType(data.cardNumber)
+        }
+        setCards((prev) => [...prev, newCard])
         reset()
     }
 
