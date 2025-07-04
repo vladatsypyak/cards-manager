@@ -24,7 +24,7 @@ const MyCardsPage = () => {
             <h2 className={"font-bold"}>My Cards</h2>
             <CardFilter filterCards={filterCards}/>
         </div>
-            <DataTable cards={cards}/>
+            <DataTable setCards={setCards} cards={cards}/>
             <AddCardDialog cards={cards} setCards={setCards}/>
         </div>
 

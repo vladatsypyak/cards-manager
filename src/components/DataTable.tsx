@@ -16,20 +16,33 @@ import {
 } from "@/components/ui/table"
 import {columns} from "@/components/CardTableColumns";
 import {CardTableRow} from "@/components/CardTableRow";
+import {RadioGroup} from "@/components/ui/radio-group";
 
 type DataTableProps = {
     data: Card[];
+    setCards: React.Dispatch<React.SetStateAction<Card[]>>
 };
 
-export function DataTable({cards }: DataTableProps) {
+export function DataTable({cards, setCards}: DataTableProps) {
     const table = useReactTable<Card>({
         data: cards,
         columns,
         getCoreRowModel: getCoreRowModel<Card>(),
     })
 
-        return (
-            <div>
+    return (
+        <div>
+            <RadioGroup
+                value={cards.find(card => card.isDefault)?.id}
+                onValueChange={(id) => {
+                    setCards((prev) =>
+                        prev.map((card) => ({
+                            ...card,
+                            isDefault: card.id === id,
+                        }))
+                    );
+                }}
+            >
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -47,7 +60,7 @@ export function DataTable({cards }: DataTableProps) {
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                            <CardTableRow row={row}/>
+                                <CardTableRow row={row}/>
                             ))
                         ) : (
                             <TableRow>
@@ -58,8 +71,10 @@ export function DataTable({cards }: DataTableProps) {
                         )}
                     </TableBody>
                 </Table>
-            </div>
-        )
+            </RadioGroup>
+        </div>
+    )
 
 }
+
 export default DataTable
