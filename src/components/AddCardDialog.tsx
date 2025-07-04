@@ -48,14 +48,15 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
         return yy ? `${mm} / ${yy}` : mm;
     }
     return <Dialog>
-        <DialogTrigger>Add New Card</DialogTrigger>
-        <DialogContent>
+        <DialogTrigger>
+            <Button variant={"outline"}>Add New Card</Button></DialogTrigger>
+        <DialogContent className="w-[400px]">
             <DialogHeader>
-                <DialogTitle>Add New Card</DialogTitle>
+                <DialogTitle className={"border-b pb-5"}>Add New Card</DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <Label>Card Number</Label>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <div className="space-y-1">
+                    <Label className={"text-[16px]"}>Card Number</Label>
                     <Controller
                         name="cardNumber"
                         control={control}
@@ -69,13 +70,14 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
                                 }}
                                 maxLength={19}
                                 placeholder={"**** **** **** ****"}
+
                             />
                         )}
                     />
 
                 </div>
-                <div>
-                    <Label>Expiration Date</Label>
+                <div className="space-y-1">
+                    <Label className={"text-[16px]"}>Expiration Date</Label>
                     <Input
                         placeholder="MM / YY"
                         {...register("expirationDate", {
@@ -89,8 +91,8 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
                         value={watch("expirationDate")}
                     />
                 </div>
-                <div>
-                    <Label className="text-sm font-medium">CVC</Label>
+                <div className="space-y-1">
+                    <Label className={"text-[16px]"}>CVC</Label>
                     <Input {...register("cvc", {
                             required: "CVC is required",
                             pattern: {
@@ -104,8 +106,9 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
                                setValue<"cvc">("cvc", formatCVC)
                            }}
                            maxLength={4}
-                           placeholder="•••"
+                           placeholder="••••"
                            value={watch("cvc")}
+                           className={"w-16 text-center placeholder:text-lg"}
                     />
                 </div>
                 <DialogFooter className="flex justify-end gap-2">
@@ -114,7 +117,7 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
                             Cancel
                         </Button>
                     </DialogTrigger>
-                    <Button type="submit">Add Card</Button>
+                    <Button className={"bg-sky-700"} type="submit">Add Card</Button>
                 </DialogFooter>
             </form>
         </DialogContent>

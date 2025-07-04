@@ -34,17 +34,23 @@ const MyCardsPage = () => {
     }
 
     return (
-        <div className={"border"}>
-            <div className={"flex justify-between"}>
-                <h2 className={"font-bold"}>My Cards</h2>
-                <CardFilter filterCards={filterCards}/>
+        <div className={"wrap max-w-[900px] mx-auto p-5 select-none "}>
+            <div className={ "table-wrap border p-5 mb-5"}>
+                <div className={"flex justify-between items-center mb-2"}>
+                    <h2 className={"font-bold"}>My Cards</h2>
+                    <CardFilter filterCards={filterCards}/>
+                </div>
+                <DataTable setCards={setCards}
+                           cards={cards}
+                           handleDelete={handleDelete}
+                           handleDefaultToggle={handleDefaultToggle}/>
+
             </div>
-            <DataTable setCards={setCards}
-                       cards={cards}
-                       handleDelete={handleDelete}
-                       handleDefaultToggle={handleDefaultToggle}/>
-            <AddCardDialog cards={cards} setCards={setCards}/>
+            <div className={"w-fit mx-auto"}><AddCardDialog cards={cards} setCards={setCards}/></div>
+
+
         </div>
+
 
     )
 }
