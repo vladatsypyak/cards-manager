@@ -14,17 +14,18 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import {columns, getColumns} from "@/components/CardTableColumns";
+import {getColumns} from "@/components/CardTableColumns";
 import {CardTableRow} from "@/components/CardTableRow";
 import {RadioGroup} from "@/components/ui/radio-group";
 
 type DataTableProps = {
     data: Card[];
     setCards: React.Dispatch<React.SetStateAction<Card[]>>,
-    handleDelete: (id: string)=> void
+    handleDelete: (id: string)=> void,
+    handleDefaultToggle: (id: string)=> void
 };
 
-export function DataTable({cards, handleDelete}: DataTableProps) {
+export function DataTable({cards, handleDelete, handleDefaultToggle}: DataTableProps) {
     const columns = getColumns(handleDelete)
 
     const table = useReactTable<Card>({
@@ -37,14 +38,7 @@ export function DataTable({cards, handleDelete}: DataTableProps) {
         <div>
             <RadioGroup
                 value={cards.find(card => card.isDefault)?.id}
-                onValueChange={(id) => {
-                    setCards((prev) =>
-                        prev.map((card) => ({
-                            ...card,
-                            isDefault: card.id === id,
-                        }))
-                    );
-                }}
+                onValueChange={(id)=> handleDefaultToggle(id)}
             >
                 <Table>
                     <TableHeader>
