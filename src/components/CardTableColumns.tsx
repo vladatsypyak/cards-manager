@@ -6,6 +6,7 @@ import {Button} from "@/components/ui/button";
 import VisaIcon from "@/assets/icons/visa.png";
 import MastercardIcon from "@/assets/icons/mastercard.png";
 import AmexIcon from "@/assets/icons/amex.png";
+import {ArrowUpDown} from "lucide-react";
 
 const brandIcons = {
     visa: VisaIcon,
@@ -17,7 +18,17 @@ const brandIcons = {
 export const getColumns = (handleDelete): ColumnDef<Card>[] => [
     {
         accessorKey: "brand",
-        header: "Brand",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Brand
+                    <ArrowUpDown />
+                </Button>
+            )
+        },
         cell: ({row}) => {
             const brand = row.getValue("brand") as string;
             const icon = brandIcons[brand];

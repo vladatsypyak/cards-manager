@@ -1,8 +1,9 @@
 import {Card} from "@/common/types";
 import {
-    ColumnDef,
     flexRender,
     getCoreRowModel,
+    SortingState,
+    getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
 
@@ -17,6 +18,7 @@ import {
 import {getColumns} from "@/components/CardTableColumns";
 import {CardTableRow} from "@/components/CardTableRow";
 import {RadioGroup} from "@/components/ui/radio-group";
+import {useState} from "react";
 
 type DataTableProps = {
     data: Card[];
@@ -27,11 +29,18 @@ type DataTableProps = {
 
 export function DataTable({cards, handleDelete, handleDefaultToggle}: DataTableProps) {
     const columns = getColumns(handleDelete)
+    const [sorting, setSorting] = useState<SortingState>([])
+
 
     const table = useReactTable<Card>({
         data: cards,
         columns,
         getCoreRowModel: getCoreRowModel<Card>(),
+        getSortedRowModel: getSortedRowModel(),
+        onSortingChange: setSorting,
+        state: {
+            sorting,
+        },
     })
 
     return (
