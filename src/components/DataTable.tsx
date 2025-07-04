@@ -14,16 +14,19 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import {columns} from "@/components/CardTableColumns";
+import {columns, getColumns} from "@/components/CardTableColumns";
 import {CardTableRow} from "@/components/CardTableRow";
 import {RadioGroup} from "@/components/ui/radio-group";
 
 type DataTableProps = {
     data: Card[];
-    setCards: React.Dispatch<React.SetStateAction<Card[]>>
+    setCards: React.Dispatch<React.SetStateAction<Card[]>>,
+    handleDelete: (id: string)=> void
 };
 
-export function DataTable({cards, setCards}: DataTableProps) {
+export function DataTable({cards, handleDelete}: DataTableProps) {
+    const columns = getColumns(handleDelete)
+
     const table = useReactTable<Card>({
         data: cards,
         columns,

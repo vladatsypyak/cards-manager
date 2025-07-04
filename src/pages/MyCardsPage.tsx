@@ -18,13 +18,17 @@ const MyCardsPage = () => {
         })
         setCards(filteredCards)
     }
+    const handleDelete = (id: string) => {
+        setCards(prev => prev.filter(card => card.id !== id))
+    }
+
     return (
         <div className={"border"}>
         <div className={"flex justify-between"}>
             <h2 className={"font-bold"}>My Cards</h2>
             <CardFilter filterCards={filterCards}/>
         </div>
-            <DataTable setCards={setCards} cards={cards}/>
+            <DataTable setCards={setCards} cards={cards} handleDelete={handleDelete}/>
             <AddCardDialog cards={cards} setCards={setCards}/>
         </div>
 

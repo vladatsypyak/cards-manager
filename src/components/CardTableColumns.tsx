@@ -1,13 +1,14 @@
-import type  { ColumnDef } from "@tanstack/react-table"
+import type {ColumnDef} from "@tanstack/react-table"
 import {Card} from "@/common/types";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import {RadioGroupItem} from "@/components/ui/radio-group"
+import {Button} from "@/components/ui/button";
 
 
-export const columns: ColumnDef<Card>[] = [
+export const getColumns = (handleDelete): ColumnDef<Card>[] => [
     {
         accessorKey: "brand",
         header: "Brand",
-        cell: ({ row }) => <p className={"font-medium"}>{row.getValue("brand")}</p>,
+        cell: ({row}) => <p className={"font-medium"}>{row.getValue("brand")}</p>,
     },
     {
         accessorKey: "last4",
@@ -16,11 +17,11 @@ export const columns: ColumnDef<Card>[] = [
     {
         accessorKey: "isDefault",
         header: "Default",
-        cell: ({row})=>{
+        cell: ({row}) => {
             const card = row.original;
             return (
                 <div className="flex items-center space-x-2">
-                    <RadioGroupItem value={card.id} id={`card-${card.id}`} />
+                    <RadioGroupItem value={card.id} id={`card-${card.id}`}/>
                     <label htmlFor={`card-${card.id}`} className="text-sm">
                         Default
                     </label>
@@ -31,7 +32,13 @@ export const columns: ColumnDef<Card>[] = [
     {
         accessorKey: "action",
         header: "Action",
-        cell: ({ row }) => <button className={"font-bold"}>Delete</button>,
+        cell: ({row}) => {
+            const card = row.original
+            return <Button
+                variant={"destructive"}
+                onClick={() => handleDelete(card.id)}
+                className={"font-bold"}>Delete</Button>
+        },
 
     },
 ]
