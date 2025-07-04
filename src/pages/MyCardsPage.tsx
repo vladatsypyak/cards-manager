@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Card} from "@/common/types";
 import DataTable from "../components/DataTable";
 import cardsMock from "../cards.json"
@@ -8,6 +8,11 @@ import AddCardDialog from "@/components/AddCardDialog";
 const MyCardsPage = () => {
     const initialCards = cardsMock
     const [cards, setCards] = useState<Card[]>(initialCards)
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => setIsLoading(false), 1000)
+    }, [])
 
     function filterCards(filterInput) {
         if (filterInput === "") {
@@ -43,7 +48,10 @@ const MyCardsPage = () => {
                 <DataTable setCards={setCards}
                            cards={cards}
                            handleDelete={handleDelete}
-                           handleDefaultToggle={handleDefaultToggle}/>
+                           handleDefaultToggle={handleDefaultToggle}
+                           isLoading={isLoading}
+
+                />
 
             </div>
             <div className={"w-fit mx-auto"}><AddCardDialog cards={cards} setCards={setCards}/></div>

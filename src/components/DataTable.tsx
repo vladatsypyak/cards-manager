@@ -21,13 +21,15 @@ import {RadioGroup} from "@/components/ui/radio-group";
 import {useState} from "react";
 
 type DataTableProps = {
-    data: Card[];
+    cards: Card[];
     setCards: React.Dispatch<React.SetStateAction<Card[]>>,
     handleDelete: (id: string)=> void,
-    handleDefaultToggle: (id: string)=> void
+    handleDefaultToggle: (id: string)=> void,
+    isLoading: boolean
+
 };
 
-export function DataTable({cards, handleDelete, handleDefaultToggle}: DataTableProps) {
+export function DataTable({cards, handleDelete, handleDefaultToggle, isLoading}: DataTableProps) {
     const columns = getColumns(handleDelete)
     const [sorting, setSorting] = useState<SortingState>([])
 
@@ -64,7 +66,14 @@ export function DataTable({cards, handleDelete, handleDefaultToggle}: DataTableP
                         ))}
                     </TableHeader>
                     <TableBody>
-                        {table.getRowModel().rows?.length ? (
+                        {isLoading ? (
+                            <TableRow>
+                                <TableCell colSpan={columns.length} className="h-24 text-center text-muted-foreground">
+                                    Loading cards...
+                                </TableCell>
+                            </TableRow>
+                        ) :
+                        table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <CardTableRow row={row}/>
                             ))
