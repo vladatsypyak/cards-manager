@@ -12,7 +12,7 @@ export const CardTableRow = ({row}: CardTableRowProps) => {
     return <TableRow
         key={row.id}
         data-state={row.original.isDefault && "selected"}
-        className="data-[state=selected]:bg-indigo-50"
+        className="data-[state=selected]:bg-indigo-50 dark:data-[state=selected]:bg-gray-800"
     >
         {row.getVisibleCells().map((cell) => (
             <TableCell key={cell.id}>

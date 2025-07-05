@@ -4,6 +4,7 @@ import DataTable from "../components/DataTable";
 import cardsMock from "../cards.json"
 import CardFilter from "@/components/CardFilter";
 import AddCardDialog from "@/components/AddCardDialog";
+import {ThemeToggle} from "@/components/ThemeToggle";
 
 const MyCardsPage = () => {
     const initialCards = cardsMock
@@ -44,6 +45,7 @@ const MyCardsPage = () => {
                 <div className={"flex justify-between items-center mb-2"}>
                     <h2 className={"font-bold"}>My Cards</h2>
                     <CardFilter filterCards={filterCards}/>
+                    <ThemeToggle/>
                 </div>
                 <DataTable setCards={setCards}
                            cards={cards}

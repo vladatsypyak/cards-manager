@@ -67,7 +67,7 @@ export const getColumns = (handleDelete): ColumnDef<Card>[] => [
                 <Button
                     variant="ghost"
                     onClick={() => handleDelete(card.id)}
-                    className="mx-auto flex w-[100px] items-center space-x-1 text-red-600 hover:bg-red-100 hover:text-red-700"
+                    className="mx-auto flex w-[100px] items-center space-x-1 text-red-600 hover:bg-red-100 dark:hover:bg-red-900 hover:text-red-700 dark:hover:text-red-950"
                 >
                     <Trash className="h-4 w-4" />
                     Delete
