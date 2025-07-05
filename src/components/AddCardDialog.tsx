@@ -12,6 +12,7 @@ import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
 import {detectCardType} from "@/common/utils";
 import {Card} from "@/common/types";
+import BrandIcon from "@/components/ui/BrandIcon";
 
 
 type NewCardFormInputs = {
@@ -61,17 +62,23 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
                         name="cardNumber"
                         control={control}
                         render={({field: {onChange, value, ...field}}) => (
-                            <Input
-                                {...field}
-                                value={formatCardNumber(value)}
-                                onChange={(e) => {
-                                    const rawValue = e.target.value.replace(/\s/g, "")
-                                    onChange(rawValue)
-                                }}
-                                maxLength={19}
-                                placeholder={"**** **** **** ****"}
+                            <div className={"relative"}>
+                                <Input
+                                    {...field}
+                                    value={formatCardNumber(value)}
+                                    onChange={(e) => {
+                                        const rawValue = e.target.value.replace(/\s/g, "")
+                                        onChange(rawValue)
+                                    }}
+                                    maxLength={19}
+                                    placeholder={"**** **** **** ****"}
 
-                            />
+                                />
+                                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                                    <BrandIcon brand={detectCardType(value)} />
+                                </div>
+                            </div>
+
                         )}
                     />
 
