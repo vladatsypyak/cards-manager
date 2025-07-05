@@ -1,14 +1,20 @@
 import {Input} from "@/components/ui/input";
 
-const CardFilter = ({filterCards}: (filterInput: string) => void) => {
+type CardFilterProps = {
+    filterCards: (filterInput: string) => void;
+};
+
+const CardFilter = ({filterCards}: CardFilterProps): JSX.Element => {
     return (
         <div>
             <Input
-                onInput={(e)=>filterCards(e.target.value)}
-                type="text"
-                placeholder={"Search..."}
                 className={"w-30"}
-            />
+                placeholder={"Search..."}
+                type="text"
+                onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                    const target = e.target as HTMLInputElement;
+                    filterCards(target.value);
+                }}            />
         </div>
     )
 }

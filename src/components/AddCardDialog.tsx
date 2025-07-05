@@ -11,7 +11,7 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
 import {detectCardType} from "@/common/utils";
-import {Card} from "@/common/types";
+import type {Card} from "@/common/types";
 import BrandIcon from "@/components/ui/BrandIcon";
 
 
@@ -21,14 +21,14 @@ type NewCardFormInputs = {
     cvc: string
 }
 type AddCardDialogProps = {
-    setCards: React.Dispatch<React.SetStateAction<Card[]>>;
+    setCards: React.Dispatch<React.SetStateAction<Array<Card>>>;
 };
 
 
-const AddCardDialog = ({setCards}: AddCardDialogProps) => {
+const AddCardDialog = ({setCards}: AddCardDialogProps): JSX.Element => {
     const {register, handleSubmit, reset, control, setValue, watch} = useForm<NewCardFormInputs>()
 
-    const onSubmit = (data: NewCardFormInputs) => {
+    const onSubmit = (data: NewCardFormInputs): void=> {
         const newCard: Card = {
             id: crypto.randomUUID(),
             last4: data.cardNumber.slice(-4),
@@ -39,10 +39,10 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
         reset()
     }
 
-    const formatCardNumber = (value: string) =>
+    const formatCardNumber = (value: string):string=>
         (value ?? "").replace(/(.{4})/g, "$1 ").trim()
 
-    const formatExpirationDate = (value: string) => {
+    const formatExpirationDate = (value: string): string=> {
         const digits = (value ?? "").replace(/\D/g, "");
         const mm = digits.slice(0, 2);
         const yy = digits.slice(2, 4);
@@ -55,23 +55,23 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
             <DialogHeader>
                 <DialogTitle className={"border-b pb-5"}>Add New Card</DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-1">
                     <Label className={"text-[16px]"}>Card Number</Label>
                     <Controller
-                        name="cardNumber"
                         control={control}
+                        name="cardNumber"
                         render={({field: {onChange, value, ...field}}) => (
                             <div className={"relative"}>
                                 <Input
                                     {...field}
+                                    maxLength={19}
+                                    placeholder={"**** **** **** ****"}
                                     value={formatCardNumber(value)}
                                     onChange={(e) => {
                                         const rawValue = e.target.value.replace(/\s/g, "")
                                         onChange(rawValue)
                                     }}
-                                    maxLength={19}
-                                    placeholder={"**** **** **** ****"}
 
                                 />
                                 <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -91,11 +91,11 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
                             required: true,
                             pattern: /^(0[1-9]|1[0-2]) \/ \d{2}$/,
                         })}
+                        value={watch("expirationDate")}
                         onChange={(e) => {
                             const formatted = formatExpirationDate(e.target.value);
                             setValue<"expirationDate">("expirationDate", formatted, {shouldValidate: true});
                         }}
-                        value={watch("expirationDate")}
                     />
                 </div>
                 <div className="space-y-1">
@@ -108,14 +108,14 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
                             }
                         }
                     )}
+                           className={"w-16 text-center placeholder:text-lg"}
+                           maxLength={4}
+                           placeholder="••••"
+                           value={watch("cvc")}
                            onChange={(e) => {
                                const formatCVC = e.target.value.replace(/\D/g, "");
                                setValue<"cvc">("cvc", formatCVC)
                            }}
-                           maxLength={4}
-                           placeholder="••••"
-                           value={watch("cvc")}
-                           className={"w-16 text-center placeholder:text-lg"}
                     />
                 </div>
                 <DialogFooter className="flex justify-end gap-2">

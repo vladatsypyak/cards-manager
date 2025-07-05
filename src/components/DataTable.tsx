@@ -1,8 +1,9 @@
-import {Card} from "@/common/types";
+import type {Card} from "@/common/types";
+import type {
+    SortingState} from "@tanstack/react-table";
 import {
     flexRender,
     getCoreRowModel,
-    SortingState,
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
@@ -21,15 +22,15 @@ import {RadioGroup} from "@/components/ui/radio-group";
 import {useState} from "react";
 
 type DataTableProps = {
-    cards: Card[];
-    setCards: React.Dispatch<React.SetStateAction<Card[]>>,
+    cards: Array<Card>;
+    setCards: React.Dispatch<React.SetStateAction<Array<Card>>>,
     handleDelete: (id: string)=> void,
     handleDefaultToggle: (id: string)=> void,
     isLoading: boolean
 
 };
 
-export function DataTable({cards, handleDelete, handleDefaultToggle, isLoading}: DataTableProps) {
+export function DataTable({cards, handleDelete, handleDefaultToggle, isLoading}: DataTableProps): JSX.Element {
     const columns = getColumns(handleDelete)
     const [sorting, setSorting] = useState<SortingState>([])
 
@@ -49,7 +50,7 @@ export function DataTable({cards, handleDelete, handleDefaultToggle, isLoading}:
         <div>
             <RadioGroup
                 value={cards.find(card => card.isDefault)?.id}
-                onValueChange={(id)=> handleDefaultToggle(id)}
+                onValueChange={(id)=> { handleDefaultToggle(id); }}
             >
                 <Table>
                     <TableHeader>
@@ -68,7 +69,7 @@ export function DataTable({cards, handleDelete, handleDefaultToggle, isLoading}:
                     <TableBody>
                         {isLoading ? (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center text-muted-foreground">
+                                <TableCell className="h-24 text-center text-muted-foreground" colSpan={columns.length}>
                                     Loading cards...
                                 </TableCell>
                             </TableRow>
@@ -79,7 +80,7 @@ export function DataTable({cards, handleDelete, handleDefaultToggle, isLoading}:
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                <TableCell className="h-24 text-center" colSpan={columns.length}>
                                     No cards found
                                 </TableCell>
                             </TableRow>

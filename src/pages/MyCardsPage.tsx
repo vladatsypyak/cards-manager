@@ -1,21 +1,21 @@
 import {useEffect, useState} from "react";
-import {Card} from "@/common/types";
+import type {Card} from "@/common/types";
 import DataTable from "../components/DataTable";
 import cardsMock from "../cards.json"
 import CardFilter from "@/components/CardFilter";
 import AddCardDialog from "@/components/AddCardDialog";
 import {ThemeToggle} from "@/components/ThemeToggle";
 
-const MyCardsPage = () => {
+const MyCardsPage = (): JSX.Element => {
     const initialCards = cardsMock
-    const [cards, setCards] = useState<Card[]>(initialCards)
+    const [cards, setCards] = useState<Array<Card>>(initialCards)
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        setTimeout(() => setIsLoading(false), 1000)
+        setTimeout(() => { setIsLoading(false); }, 1000)
     }, [])
 
-    function filterCards(filterInput) {
+    function filterCards(filterInput: string): void {
         if (filterInput === "") {
             setCards(initialCards)
             return
@@ -26,11 +26,11 @@ const MyCardsPage = () => {
         setCards(filteredCards)
     }
 
-    const handleDelete = (id: string) => {
+    const handleDelete = (id: string): void => {
         setCards(prev => prev.filter(card => card.id !== id))
     }
 
-    const handleDefaultToggle = (id: string) => {
+    const handleDefaultToggle = (id: string): void => {
         setCards((prev) =>
             prev.map((card) => ({
                 ...card,
@@ -47,11 +47,11 @@ const MyCardsPage = () => {
                     <CardFilter filterCards={filterCards}/>
                     <ThemeToggle/>
                 </div>
-                <DataTable setCards={setCards}
-                           cards={cards}
-                           handleDelete={handleDelete}
+                <DataTable cards={cards}
                            handleDefaultToggle={handleDefaultToggle}
+                           handleDelete={handleDelete}
                            isLoading={isLoading}
+                           setCards={setCards}
 
                 />
 
