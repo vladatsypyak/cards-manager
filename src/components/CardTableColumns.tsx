@@ -2,17 +2,10 @@ import type {ColumnDef} from "@tanstack/react-table"
 import {Card} from "@/common/types";
 import {RadioGroupItem} from "@/components/ui/radio-group"
 import {Button} from "@/components/ui/button";
-
-import VisaIcon from "@/assets/icons/visa.png";
-import MastercardIcon from "@/assets/icons/mastercard.png";
-import AmexIcon from "@/assets/icons/amex.png";
+import BrandIcon from "@/components/ui/BrandIcon";
 import {ArrowUpDown, Trash} from "lucide-react";
 
-const brandIcons = {
-    visa: VisaIcon,
-    mastercard: MastercardIcon,
-    amex: AmexIcon,
-};
+
 
 
 export const getColumns = (handleDelete): ColumnDef<Card>[] => [
@@ -29,10 +22,9 @@ export const getColumns = (handleDelete): ColumnDef<Card>[] => [
         ),
         cell: ({ row }) => {
             const brand = row.getValue("brand") as string
-            const icon = brandIcons[brand]
             return (
                 <div className="pl-3">
-                    <img src={icon} alt={brand} className="w-12 h-12" />
+                    <BrandIcon brand={brand}/>
                 </div>
             )
         },
