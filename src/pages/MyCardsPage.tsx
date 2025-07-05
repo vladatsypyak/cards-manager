@@ -40,7 +40,7 @@ const MyCardsPage = () => {
 
     return (
         <div className={"wrap max-w-[900px] mx-auto p-5 select-none "}>
-            <div className={ "table-wrap border p-5 mb-5"}>
+            <div className={ "table-wrap border p-5 mb-5 rounded-md"}>
                 <div className={"flex justify-between items-center mb-2"}>
                     <h2 className={"font-bold"}>My Cards</h2>
                     <CardFilter filterCards={filterCards}/>

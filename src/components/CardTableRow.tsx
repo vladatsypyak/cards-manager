@@ -11,7 +11,8 @@ type CardTableRowProps = {
 export const CardTableRow = ({row}: CardTableRowProps) => {
     return <TableRow
         key={row.id}
-        data-state={row.getIsSelected() && "selected"}
+        data-state={row.original.isDefault && "selected"}
+        className="data-[state=selected]:bg-indigo-50"
     >
         {row.getVisibleCells().map((cell) => (
             <TableCell key={cell.id}>
