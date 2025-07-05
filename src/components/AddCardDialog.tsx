@@ -124,7 +124,12 @@ const AddCardDialog = ({setCards}: AddCardDialogProps) => {
                             Cancel
                         </Button>
                     </DialogTrigger>
-                    <Button className={"bg-sky-700"} type="submit">Add Card</Button>
+                    <DialogTrigger asChild>
+                        <Button className={"bg-sky-700"} type="submit">Add Card</Button>
+                    </DialogTrigger>
+
+
+
                 </DialogFooter>
             </form>
         </DialogContent>
